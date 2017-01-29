@@ -14,7 +14,7 @@ Following instructions are tested on Raspberry Pi but should work on Debian with
 * Install ifupdown and fping with the following command:  
 `sudo apt-get install ifupdown fping`
 * Copy / clone this repo into a folder and then add to your:  
-`crontab -e`  
+`sudo crontab -e`  
 this row to run it every 5 minutes:  
 `*/5 * * * * /yourpath/network_check.sh`
 
