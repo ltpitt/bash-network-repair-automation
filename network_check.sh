@@ -21,16 +21,16 @@
 # Let's clear the screen
 clear
 
-# Write here the gateway / website you want to check to declare network working or not
+# Write here the gateway / website you want to check to declare if network is working or not
 gateway_ip='www.google.com'
 
-# Here we specify the path of a txt file that counts network failures
+# Specify the path of a txt file where the network failures count will be held
 network_check_tries_file='/home/pi/scripts/network_check/network_check_tries.txt'
 
-# Time to put into a variable its content
+# Save into a variable its content
 network_check_tries=`cat $network_check_tries_file`
 
-# Then we check if ping to the specified gateway is working
+# Into host_status variable will be stored ping to the specified gateway result
 host_status=$(fping $gateway_ip)
 
 #  If host is / is not alive we perform the ok / ko actions that simply involve increasing or resetting the failure counter
