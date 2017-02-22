@@ -1,10 +1,12 @@
 # README #
 
-Linux Network Repair Automation
+Linux WiFi Network Repair Automation
 
 ### What is this repository for? ###
 
-This bash script checks for wireless internet connection and, if it is failing, tries to fix it
+This bash script checks for wireless internet connection and, if it is failing, tries to fix it.  
+I've used it to solve my Raspberry Pi's network disconnection issues:  
+http://unix.stackexchange.com/questions/141095/automatically-reboot-if-no-wifi-connection-for-a-certain-time/317677#317677
 
 
 ### How do I get set up? ###
