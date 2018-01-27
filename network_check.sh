@@ -1,5 +1,5 @@
 #!/bin/bash
-# Author: 
+# Author:
 # twitter.com/pitto
 #
 # HOW TO INSTALL:
@@ -7,55 +7,60 @@
 # 1) Install ifupdown and fping with the following command:
 # sudo apt-get install ifupdown fping
 #
-# 2) Create a tmp file in any folder you like (remember to customize network_check_tries_file variable) with the following command:
-# sudo touch /home/pi/scripts/network_check/network_check_tries.txt && sudo chmod 777 /home/pi/network_check//network_check_tries.txt
-#
-# 3) Then install this script into a folder and add to your crontab -e this row:
+# 2) Then install this script into a folder and add to your crontab -e this row:
 # */5 * * * * /yourhome/yourname/network_check.sh
 #
 # Note:
-# If additionally you want to perform automatic repair fsck at reboot
+# If you want to perform automatic repair fsck at reboot
 # remember to uncomment fsck autorepair here: nano /etc/default/rcS
-
 
 # Let's clear the screen
 clear
 
-# Write here the gateway / website you want to check to declare if network is working or not
-gateway_ip='www.google.com'
+# Write here the gateway you want to check to declare network working or not
+gateway_ip='asdasdwww.google.com'
 
-# Specify the path of a txt file where the network failures count will be held
-network_check_tries_file='/home/pi/scripts/network_check/network_check_tries.txt'
+# Here we specify the path of temporary file that counts network failures
+network_check_tries=0
 
-# Save into a variable its content
-network_check_tries=`cat $network_check_tries_file`
+# Here we specify the maximum number of failed checks
+network_check_threshold=5
 
-# Into host_status variable will be stored ping to the specified gateway result
-host_status=$(fping $gateway_ip)
-
-#  If host is / is not alive we perform the ok / ko actions that simply involve increasing or resetting the failure counter
-if [[ $host_status == *"alive"* ]]
-then
-    echo "Network is working correctly" && echo 0 > $network_check_tries_file 
-else
-    echo "Network is down..." && echo $(($network_check_tries + 1)) > $network_check_tries_file
-fi
-
-# If network test failed more than 5 times (you can change this value to whatever you prefer)
-if [ $network_check_tries -gt 5 ]; then
-echo "Network was not working for the previous $network_check_tries checks."
-# Time to restart wlan0
+# This function will be called when network_check_tries is equal or greather than network_check_threshold
+function restart_wlan0 {
+    # If network test failed more than $network_check_threshold
+    echo "Network was not working for the previous $network_check_tries checks."
+    # We restart wlan0
     echo "Restarting wlan0"
     /sbin/ifdown 'wlan0'
     sleep 5
     /sbin/ifup --force 'wlan0'
-    sleep 30
-# Then we check again if restarting wlan0 fixed the issue, if not we reboot as last resort
+    sleep 60
+    # If you also want a reboot in case of network not recovery uncomment the following lines
+    #host_status=$(fping $gateway_ip)
+    #if [[ $host_status != *"alive"* ]]; then
+    #    reboot
+    #fi
+}
+
+# This loop will run 5 times and if we have 5 failures we declare network as not working and we restart wlan0
+while [ $network_check_tries -lt $network_check_threshold ]; do
+    # We check if ping to gateway if working and perform the ok / ko actions
     host_status=$(fping $gateway_ip)
-    if [[ $host_status == *"alive"* ]]
-    then
-        echo "Network is working correctly" && echo 0 > $network_check_tries_file
+    # Increase network_check_tries by 1 unit
+    network_check_tries=$[$network_check_tries+1]
+    # If network is working
+    if [[ $host_status == *"alive"* ]]; then
+        # We reset network_check_tries to 0
+        echo "Network is working correctly, network_check_tries to 0" && network_check_tries=0
     else
-        echo "Network is down..." && echo 0 > $network_check_tries_file && reboot
+        # If not we go for another check
+        echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
-fi
+    # If we hit the threshold we restart wlan0
+    if [ $network_check_tries -ge $network_check_threshold ]; then
+        restart_wlan0
+    fi
+    # Let's wait a bit between every check
+    sleep 5
+done
