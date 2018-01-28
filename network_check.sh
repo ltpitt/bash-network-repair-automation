@@ -18,9 +18,9 @@
 clear
 
 # Write here the gateway you want to check to declare network working or not
-gateway_ip='asdasdwww.google.com'
+gateway_ip='www.google.com'
 
-# Here we specify the path of temporary file that counts network failures
+# Here we initialize the check counter to zero
 network_check_tries=0
 
 # Here we specify the maximum number of failed checks
@@ -36,25 +36,26 @@ function restart_wlan0 {
     sleep 5
     /sbin/ifup --force 'wlan0'
     sleep 60
-    # If you also want a reboot in case of network not recovery uncomment the following lines
+    # If network is still down after recovery and you want to force a reboot simply uncomment following 4 rows
     #host_status=$(fping $gateway_ip)
     #if [[ $host_status != *"alive"* ]]; then
     #    reboot
     #fi
 }
 
-# This loop will run 5 times and if we have 5 failures we declare network as not working and we restart wlan0
+# This loop will run network_check_tries times and if we have network_check_threshold failures
+# we declare network as not working and we restart wlan0
 while [ $network_check_tries -lt $network_check_threshold ]; do
-    # We check if ping to gateway if working and perform the ok / ko actions
+    # We check if ping to gateway is working and perform the ok / ko actions
     host_status=$(fping $gateway_ip)
     # Increase network_check_tries by 1 unit
     network_check_tries=$[$network_check_tries+1]
     # If network is working
     if [[ $host_status == *"alive"* ]]; then
-        # We reset network_check_tries to 0
-        echo "Network is working correctly, network_check_tries to 0" && network_check_tries=0
+        # We print positive feedback and quit
+        echo "Network is working correctly" && exit 0
     else
-        # If not we go for another check
+        # If network is down print negative feedback and continue
         echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
     # If we hit the threshold we restart wlan0
