@@ -10,11 +10,13 @@
 ## How to use
 
 - Clone this repo locally
-- Customize path according to the folder where you cloned the script:
+- Customize path according to the folder where you cloned the script:  
 `*/5 * * * * /yourpath/network_check.sh`
-- Put the resulting row into your root crontab:
+- Put the resulting row into your root crontab:  
 `sudo crontab -e` 
 - If you also want to reboot in case wifi is not working after the fix uncomment the required lines in the code (detailed explanation is in the script comments)
+- If you want to perform automatic repair fsck in case of reboot (this is the last possible recovery action) remember to uncomment fsck autorepair here:  
+`/etc/default/rcS`
 
 ## Release History
 
