@@ -5,7 +5,8 @@
 
 ## Prerequisites
 
-- Download and install requirements: `sudo apt-get install ifupdown fping -y`
+- Download and install requirements:  
+`sudo apt-get install ifupdown fping -y`
 
 ## How to use
 
