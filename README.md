@@ -1,7 +1,5 @@
 # Raspberry Pi (and Linux) Wifi Repair Automation
-> This bash script checks for wireless internet connection and, if it is failing, tries to fix it.  
-> I've used it to solve my Raspberry Pi's network disconnection issues:  
-> http://unix.stackexchange.com/questions/141095/automatically-reboot-if-no-wifi-connection-for-a-certain-time/317677#317677  
+> This bash script checks for wireless internet connection and, if it is failing, tries to fix it.   
 
 ## Prerequisites
 
@@ -10,14 +8,15 @@
 
 ## How to use
 
-- Clone this repo locally
-- Customize path according to the folder where you cloned the script:  
+- Clone (or download) this repo locally:  
+`git clone https://github.com/ltpitt/bash-network-repair-automation.git`
+- Customize path in the following string according to the folder where you cloned the script:  
 `* * * * * /yourpath/network_check.sh`
-- Put the resulting row into your root crontab:  
+- Put the modified string into your root user's crontab:  
 `sudo crontab -e` 
-- If you also want to reboot in case wifi is not working after the fix uncomment the required lines in the code (detailed explanation is in the script comments)
-- If you want to perform automatic repair fsck in case of reboot (this is the last possible recovery action) remember to uncomment fsck autorepair here:  
-`/etc/default/rcS`
+- If you also want to reboot in case wifi is not working after the fix uncomment the required lines in the code (you'll find a detailed explanation in the script comments)
+- If you want to perform automatic repair fsck in case of reboot (this is the last possible recovery action) remember to uncomment *fsck autorepair* editing rcS with the following command:  
+`sudo nano /etc/default/rcS`
 
 ## Release History
 
