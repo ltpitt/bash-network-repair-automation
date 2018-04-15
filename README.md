@@ -32,7 +32,7 @@ Davide Nastri – [@pitto](https://twitter.com/pitto) – d.nastri@gmail.com
 
 Distributed under the GPL license. See ``LICENSE`` for more information.
 
-[https://github.com/ltpitt/vagrant-cloudpebble-composed](https://github.com/ltpitt/)
+[https://github.com/ltpitt/bash-network-repair-automation](https://github.com/ltpitt/bash-network-repair-automation/)
 
 ## Contributing
 
