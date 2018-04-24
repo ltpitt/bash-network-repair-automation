@@ -32,7 +32,7 @@ Davide Nastri – [@pitto](https://twitter.com/pitto) – d.nastri@gmail.com
 
 Distributed under the GPL license. See ``LICENSE`` for more information.
 
-[https://github.com/ltpitt/bash-network-repair-automation](https://github.com/ltpitt/bash-network-repair-automation/)
+[Bash Wifi Network Repair Script](https://github.com/ltpitt/bash-network-repair-automation)
 
 ## Contributing
 
