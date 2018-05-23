@@ -24,7 +24,7 @@
 * 0.0.2
     * Refactored in order to remove tmp files and preserve Raspberry's SD card
 * 0.0.1
-    * First working version using tmp files
+    * First working version using tmp files to keep count of the network check retries
 
 ## Meta
 
