@@ -19,6 +19,10 @@
 - If you want to perform automatic repair fsck in case of reboot (this is the last possible recovery action) remember to uncomment *fsck autorepair* editing rcS with the following command:  
 `sudo nano /etc/default/rcS`
 
+## Bonus - Push notifications / Email
+
+If you want to add push or email notifications when your network is restored please check my other repo, [Simple Notifications](https://github.com/ltpitt/python-simple-notifications)
+
 ## Release History
 
 * 0.0.2
