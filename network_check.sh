@@ -16,7 +16,7 @@
 
 # Let's check if fping and ipupdown are installed, if not the script will stop running
 command -v fping >/dev/null 2>&1 || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
-command -v ifupdown >/dev/null 2>&1 || { echo >&2 "Sorry but ifupdown is not installed. Aborting.";  exit 1; }
+command -v ifup >/dev/null 2>&1 || { echo >&2 "Sorry but ifupdown is not installed. Aborting.";  exit 1; }
 
 # Let's clear the screen
 clear
