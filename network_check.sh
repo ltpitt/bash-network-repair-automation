@@ -24,7 +24,7 @@ clear
 # Write here the gateway you want to check to declare network working or not
 gateway_ip='www.google.com'
 
-# Write here your Network card name if the name you see in ifconfig is not wlan0
+# Write here your Network card name if the name you see in ifconfig
 nic='wlan0'
 
 # Here we initialize the check counter to zero
@@ -51,7 +51,7 @@ function restart_wlan {
 }
 
 # This loop will run network_check_tries times and if we have network_check_threshold failures
-# we declare network as not working and we restart wlan0
+# we declare network as not working and we restart the wireless card
 while [ $network_check_tries -lt $network_check_threshold ]; do
     # We check if ping to gateway is working and perform the ok / ko actions
     host_status=$(fping $gateway_ip)
