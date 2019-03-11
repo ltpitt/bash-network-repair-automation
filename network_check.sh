@@ -7,7 +7,7 @@
 # 1) Install ifupdown and fping with the following command:
 # sudo apt-get install ifupdown fping
 #
-# 2) Then install this script into a folder and add to your crontab -e this row:
+# 2) Then install this script into a folder and add to your crontab -e this row (be sure that the script is also executable):
 # */5 * * * * /yourhome/yourname/network_check.sh
 #
 # Note:
@@ -24,7 +24,7 @@ clear
 # Write here the gateway you want to check to declare network working or not
 gateway_ip='www.google.com'
 
-# Write here your Network card name if the name you see in ifconfig
+# Write here your Network card name as the name you see in ifconfig
 nic='wlan0'
 
 # Here we initialize the check counter to zero
@@ -51,7 +51,7 @@ function restart_wlan {
 }
 
 # This loop will run network_check_tries times and if we have network_check_threshold failures
-# we declare network as not working and we restart the wireless card
+# we declare network as not working and we'll restart the wireless card
 while [ $network_check_tries -lt $network_check_threshold ]; do
     # We check if ping to gateway is working and perform the ok / ko actions
     host_status=$(fping $gateway_ip)
