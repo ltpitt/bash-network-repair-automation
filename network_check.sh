@@ -33,6 +33,10 @@ network_check_tries=0
 # Here we specify the maximum number of failed checks
 network_check_threshold=5
 
+# Set the following variable to true if you want to reboot as a last
+# option to fix wifi after network_check_treshold attempts
+reboot_server=false
+
 # This function will be called when network_check_tries is equal or greather than network_check_threshold
 function restart_wlan {
     # If network test failed more than $network_check_threshold
@@ -43,11 +47,10 @@ function restart_wlan {
     sleep 5
     /sbin/ifup --force '$nic'
     sleep 60
-    # If network is still down after recovery and you want to force a reboot simply uncomment following 4 rows
-    #host_status=$(fping $gateway_ip)
-    #if [[ $host_status != *"alive"* ]]; then
-    #    reboot
-    #fi
+    if [ "$reboot_server" = true ] ; then
+        echo "Network is not working, rebooting."
+        reboot
+    fi
 }
 
 # This loop will run network_check_tries times and if we have network_check_threshold failures
