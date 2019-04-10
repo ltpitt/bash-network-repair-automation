@@ -47,9 +47,12 @@ function restart_wlan {
     sleep 5
     /sbin/ifup --force '$nic'
     sleep 60
-    if [ "$reboot_server" = true ] ; then
-        echo "Network is not working, rebooting."
-        reboot
+    host_status=$(fping $gateway_ip)
+    if [[ $host_status != *"alive"* ]]; then
+        if [ "$reboot_server" = true ] ; then
+            echo "Network is not working, rebooting."
+            reboot
+        fi
     fi
 }
 
