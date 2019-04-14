@@ -43,9 +43,9 @@ function restart_wlan {
     echo "Network was not working for the previous $network_check_tries checks."
     # We restart specified Wireless LAN
     echo "Restarting $nic"
-    /sbin/ifdown '$nic'
+    /sbin/ifdown "$nic"
     sleep 5
-    /sbin/ifup --force '$nic'
+    /sbin/ifup --force "$nic"
     sleep 60
     host_status=$(fping $gateway_ip)
     if [[ $host_status != *"alive"* ]]; then
