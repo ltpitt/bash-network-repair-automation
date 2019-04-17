@@ -56,13 +56,15 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     host_status=$(fping $gateway_ip)
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
-    # If network is up
+    
     if [[ $host_status == *"alive"* ]]; then
+        # If network is up
         echo "Network is working correctly" && exit 0
     else
         # If network is down
         echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
+    
     # Once the network_check_threshold is reached call restart_wlan
     if [ $network_check_tries -ge $network_check_threshold ]; then
         restart_wlan
