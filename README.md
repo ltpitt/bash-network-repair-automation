@@ -14,9 +14,9 @@
 `sudo crontab -e` 
 - This line will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
 `* * * * * /yourpath/network_check.sh`
-- If you also want to reboot in case wifi is not working after the fix uncomment the required lines in the code (you'll find a detailed explanation in the script comments):  
+- If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
-- If you want to perform automatic repair fsck in case of reboot (this is the last possible recovery action) remember to uncomment *fsck autorepair* editing rcS with the following command:  
+- If you want to perform automatic repair with fsck in case of reboot (this is the last possible recovery action) remember to uncomment *fsck autorepair* editing rcS with the following command:  
 `sudo nano /etc/default/rcS`
 
 ## Bonus - Push notifications / Email
