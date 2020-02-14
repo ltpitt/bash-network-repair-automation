@@ -67,6 +67,7 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     
     # Once the network_check_threshold is reached call restart_wlan
     if [ $network_check_tries -ge $network_check_threshold ]; then
+        network_check_tries=0
         restart_wlan
     fi
     sleep 5
