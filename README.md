@@ -46,6 +46,11 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
 
+## Contributors (thanks, you are awesome! :) )
+
+1. [czerwony03](https://github.com/czerwony03)
+2. [pattyland](https://github.com/pattyland)
+
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/datadog-metrics
