@@ -10,9 +10,9 @@
 
 - Clone (or download) this repo locally:  
 `git clone https://github.com/ltpitt/bash-network-repair-automation.git`
-- Edit your root user's crontab:  
+- Edit your root user's crontab using:  
 `sudo crontab -e` 
-- This line will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
+- Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
 `* * * * * /yourpath/network_check.sh`
 - If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
