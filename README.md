@@ -16,7 +16,10 @@
 `* * * * * /yourpath/network_check.sh`
 - If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
-- If you want to perform automatic repair with fsck in case of reboot (this is the last possible recovery action) remember to uncomment *fsck autorepair* editing rcS with the following command:  
+
+## Optional - Automatic repair with fsck in case of reboot
+
+As a last thing, if you want to perform automatic repair with fsck in case of reboot (even if it slows down the boot a bit I think it is quite a good idea to do it) remember to uncomment *fsck autorepair* editing rcS with the following command:  
 `sudo nano /etc/default/rcS`
 
 ## Bonus - Push notifications / Email
