@@ -32,17 +32,19 @@ reboot_server=false
 network_check_tries=0
 
 function restart_wlan {
-    echo "Network was not working for the previous $network_check_tries checks."
+    # Trying wlan restart using ifdown / ifup
+    echo "Wifi Network was not working for the previous $network_check_tries checks."
     echo "Restarting $nic"
     /sbin/ifdown "$nic"
     sleep 5
     /sbin/ifup --force "$nic"
     sleep 60
     
+    # If network is still down and reboot_server is set to true reboot
     host_status=$(fping $gateway_ip)
     if [[ $host_status != *"alive"* ]]; then
         if [ "$reboot_server" = true ] ; then
-            echo "Network is not working, rebooting."
+            echo "Wifi Network is still not working, rebooting."
             reboot
         fi
     fi
@@ -52,17 +54,17 @@ function restart_wlan {
 # network_check_threshold failures the network will be declared as
 # not functional and the restart_wlan function will be triggered
 while [ $network_check_tries -lt $network_check_threshold ]; do
-    # Checking if ping to gateway is working and performing the ok / ko actions
+    # Checking if ping to gateway is working using fping
     host_status=$(fping $gateway_ip)
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
     
     if [[ $host_status == *"alive"* ]]; then
-        # If network is up
-        echo "Network is working correctly" && exit 0
+        # Network is up
+        echo "Wifi Network is working correctly" && exit 0
     else
-        # If network is down
-        echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
+        # Network is down
+        echo "Wifi Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
     
     # Once the network_check_threshold is reached call restart_wlan
