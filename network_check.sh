@@ -5,8 +5,8 @@
 # Please check README.md for install / usage instructions
 
 # Checking if requirements (fping and ifupdown) are installed 
-command -v fping >/dev/null 2>&1 || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
-`command -v /sbin/ifup >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1` || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
+`command -v /sbin/fping >/dev/null 2>&1 || command -v fping >/dev/null 2>&1` || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
+`command -v /sbin/ifup >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1` || { echo >&2 "Sorry but ifup is not installed. Aborting.";  exit 1; }
 
 clear
 
