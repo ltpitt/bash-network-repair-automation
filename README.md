@@ -35,7 +35,7 @@ If you want to add push or email notifications when your network is restored ple
 
 ## Meta
 
-Davide Nastri – [@pitto](https://twitter.com/pitto) – d.nastri@gmail.com
+Davide Nastri – d.nastri@gmail.com
 
 Distributed under the GPL license. See ``LICENSE`` for more information.
 
