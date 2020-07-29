@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author:
-# twitter.com/pitto
+# https://github.com/ltpitt
 #
 # Please check README.md for install / usage instructions
 
