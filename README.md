@@ -19,8 +19,22 @@
 
 ## Optional - Automatic repair with fsck in case of reboot
 
-As a last thing, if you want to perform automatic repair with fsck in case of reboot (even if it slows down the boot a bit I think it is quite a good idea to do it) remember to uncomment *fsck autorepair* editing rcS with the following command:  
-`sudo nano /etc/default/rcS`
+As a last thing, if you want to perform automatic repair with fsck in case of reboot (even if it slows down the boot a bit I think it is quite a good idea to do it) remember to enable the functionality on your system.  
+How to enable this funcionality changes according to your OS and its version, here's a possible way to configure it on Debian Buster (Raspberry Pi):
+- Edit `/boot/cmdline.txt`
+- Add to it the folloding lines:  
+`fsck.mode=force`
+`fsck.repair=yes`
+
+You'll probably notice fsck.repair=yes is already there; these are not the same thing. From man systemd-fsck (these are actually parameters that are passed on by the kernel to init, i.e., systemd):
+
+`fsck.mode=`
+
+One of "auto", "force", "skip". Controls the mode of operation. The default is "auto", and ensures that file system checks are done when the file system checker deems them necessary. "force" unconditionally results in full file system checks. "skip" skips any file system checks.
+
+`fsck.repair=`
+
+One of "preen", "yes", "no". Controls the mode of operation. The default is "preen", and will automatically repair problems that can be safely fixed. "yes " will answer yes to all questions by fsck and "no" will answer no to all questions.
 
 ## Bonus - Push notifications / Email
 
@@ -53,6 +67,7 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 
 1. [czerwony03](https://github.com/czerwony03)
 2. [pattyland](https://github.com/pattyland)
+3. [@deltabravozulu](https://github.com/deltabravozulu)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
