@@ -22,8 +22,8 @@
 As a last thing, if you want to perform automatic repair with fsck in case of reboot (even if it slows down the boot a bit I think it is quite a good idea to do it) remember to enable the functionality on your system.  
 How to enable this funcionality changes according to your OS and its version, here's a possible way to configure it on Debian Buster (Raspberry Pi):
 - Edit `/boot/cmdline.txt`
-- Add to it the folloding lines:  
-`fsck.mode=force`
+- Be sure that you have in it the following lines:  
+`fsck.mode=force`  
 `fsck.repair=yes`
 
 You'll probably notice fsck.repair=yes is already there; these are not the same thing. From man systemd-fsck (these are actually parameters that are passed on by the kernel to init, i.e., systemd):
