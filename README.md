@@ -26,7 +26,7 @@ How to enable this funcionality changes according to your OS and its version, he
 `fsck.mode=force`  
 `fsck.repair=yes`
 
-You'll probably notice fsck.repair=yes is already there; these are not the same thing. From man systemd-fsck (these are actually parameters that are passed on by the kernel to init, i.e., systemd):
+You'll probably notice fsck.repair=yes is already there; these two properties are not exactly the same thing. From man systemd-fsck (these are actually parameters that are passed on by the kernel to init, i.e., systemd):
 
 `fsck.mode=`
 
