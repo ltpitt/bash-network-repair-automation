@@ -1,4 +1,4 @@
-# Raspberry Pi GNU / Linux Wifi Repair Automation
+# Raspberry Pi (and GNU / Linux) - Wifi Repair Automation
 > This bash script checks the health status for wireless internet connection and, if it is failing, tries to fix it.   
 
 ## Prerequisites
