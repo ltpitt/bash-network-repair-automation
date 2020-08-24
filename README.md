@@ -71,6 +71,7 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 1. [czerwony03](https://github.com/czerwony03)
 2. [pattyland](https://github.com/pattyland)
 3. [deltabravozulu](https://github.com/deltabravozulu)
+4. [mpatnode](https://github.com/mpatnode)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
