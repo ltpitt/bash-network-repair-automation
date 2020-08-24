@@ -45,6 +45,9 @@ If you want to add push or email notifications when your network is restored ple
 
 ## Release History
 
+* 0.0.3
+    * Ifupdown is not compatible with udev, in order to extend compatibility with other systems like NAS its requirement was made optional
+    * Added logging
 * 0.0.2
     * Refactored in order to remove tmp files and preserve Raspberry's SD card
 * 0.0.1
