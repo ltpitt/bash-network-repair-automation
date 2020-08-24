@@ -4,7 +4,10 @@
 ## Prerequisites
 
 - Download and install requirements:  
-`sudo apt-get install ifupdown fping -y`
+`sudo apt-get install fping -y`
+
+- Optional.  Note ifupdown isn't compatible with udev, which you may not be hip with replacing on your NAS OS
+`sudo apt-get install ifupdown -y`
 
 ## How to use
 
@@ -13,7 +16,7 @@
 - Edit your root user's crontab using:  
 `sudo crontab -e` 
 - Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
-`* * * * * /yourpath/network_check.sh`
+`* * * * * /yourpath/network_check.sh >> /var/log/netcheck.log 2>&1`
 - If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
 

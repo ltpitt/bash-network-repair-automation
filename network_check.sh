@@ -6,16 +6,16 @@
 
 # Checking if requirements (fping and ifupdown) are installed 
 `command -v /sbin/fping >/dev/null 2>&1 || command -v fping >/dev/null 2>&1` || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
-`command -v /sbin/ifup >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1` || { echo >&2 "Sorry but ifupdown is not installed. Aborting.";  exit 1; }
 
-clear
+command -v /sbin/ifdown >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1
+USE_IFUPDOWN=$?
 
 ###
 # Configuration variables, customize if needed
 ###
 
 # Set gateway_ip to the gateway that you want to check to declare network working or not
-gateway_ip='www.google.com'
+gateway_ip='1.1.1.1'
 # Set nic to your Network card name, as seen in ifconfig output
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks
@@ -31,21 +31,32 @@ reboot_server=false
 # Initializing the network check counter to zero
 network_check_tries=0
 
+function date_log {
+    echo "$(date +'%Y-%m-%d %T') $1"
+}
+
 function restart_wlan {
     # Trying wlan restart using ifdown / ifup
-    echo "Wifi Network was not working for the previous $network_check_tries checks."
-    echo "Restarting $nic"
-    /sbin/ifdown "$nic"
-    sleep 5
-    /sbin/ifup --force "$nic"
-    sleep 60
-    
+    date_log "Network was not working for the previous $network_check_tries checks."
+    date_log "Restarting $nic"
+    if [[ $USE_IFUPDOWN = 0 ]]; then
+        /sbin/ifdown "$nic"
+        sleep 5
+        /sbin/ifup --force "$nic"
+        sleep 60
+    else
+        /sbin/ifconfig "$nic" down
+        sleep 5
+        /sbin/ifconfig "$nic" up
+        sleep 60
+    fi
+
     # If network is still down and reboot_server is set to true reboot
     host_status=$(fping $gateway_ip)
     if [[ $host_status != *"alive"* ]]; then
         if [ "$reboot_server" = true ] ; then
-            echo "Wifi Network is still not working, rebooting."
-            reboot
+            date_log "Network is still not working, rebooting"
+            /sbin/reboot
         fi
     fi
 }
@@ -61,10 +72,10 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     
     if [[ $host_status == *"alive"* ]]; then
         # Network is up
-        echo "Wifi Network is working correctly" && exit 0
+        date_log "Network is working correctly" && exit 0
     else
         # Network is down
-        echo "Wifi Network is down, failed check number $network_check_tries of $network_check_threshold"
+        echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
     
     # Once the network_check_threshold is reached call restart_wlan
