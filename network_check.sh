@@ -5,7 +5,6 @@
 # Please check README.md for install / usage instructions
 
 # Checking if requirements (fping and ifupdown) are installed 
-set -xv
 `command -v /sbin/fping >/dev/null 2>&1 || command -v fping >/dev/null 2>&1` || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
 
 command -v /sbin/ifdown >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1
