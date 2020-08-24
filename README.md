@@ -1,12 +1,12 @@
 # Raspberry Pi (and GNU / Linux) - Wifi Repair Automation
 > This bash script checks the health status for wireless internet connection and, if it is failing, tries to fix it.   
 
-## Prerequisites
+## Prerequisite - Mandatory
 
 - Download and install fping:  
 `sudo apt-get install fping -y`
 
-### Optional
+## Prerequisite - Optional
 
 - Ifupdown isn't compatible with udev and on some systems (e.g. your NAS OS) it may not be a good idea replacing it. The script will detect automatically ifupdown and will work also if it is not installed. In the next releases of this script ifupdown usage will be deprecated.
 `sudo apt-get install ifupdown -y`
@@ -21,6 +21,10 @@
 `* * * * * /yourpath/network_check.sh >> /var/log/netcheck.log 2>&1`
 - If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
+
+## Optional - Push notifications / Email
+
+If you want to add push or email notifications when your network is restored please check my other repo, [Simple Notifications](https://github.com/ltpitt/python-simple-notifications)
 
 ## Optional - Automatic repair with fsck in case of reboot
 
@@ -41,9 +45,6 @@ One of "auto", "force", "skip". Controls the mode of operation. The default is "
 
 One of "preen", "yes", "no". Controls the mode of operation. The default is "preen", and will automatically repair problems that can be safely fixed. "yes " will answer yes to all questions by fsck and "no" will answer no to all questions.
 
-## Bonus - Push notifications / Email
-
-If you want to add push or email notifications when your network is restored please check my other repo, [Simple Notifications](https://github.com/ltpitt/python-simple-notifications)
 
 ## Release History
 
