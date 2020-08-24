@@ -10,8 +10,6 @@
 command -v /sbin/ifdown >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1
 USE_IFUPDOWN=$?
 
-clear
-
 ###
 # Configuration variables, customize if needed
 ###
@@ -33,10 +31,14 @@ reboot_server=false
 # Initializing the network check counter to zero
 network_check_tries=0
 
+function date_log {
+    echo "$(date +'%Y-%m-%d %T') $1"
+}
+
 function restart_wlan {
     # Trying wlan restart using ifdown / ifup
-    echo "Network was not working for the previous $network_check_tries checks."
-    echo "Restarting $nic"
+    date_log "Network was not working for the previous $network_check_tries checks."
+    date_log "Restarting $nic"
     if [[ $USE_IFUPDOWN = 0 ]]; then
         /sbin/ifdown "$nic"
         sleep 5
@@ -53,8 +55,8 @@ function restart_wlan {
     host_status=$(fping $gateway_ip)
     if [[ $host_status != *"alive"* ]]; then
         if [ "$reboot_server" = true ] ; then
-            echo "Network is still not working, rebooting."
-            reboot
+            date_log "Network is still not working, rebooting"
+            /sbin/reboot
         fi
     fi
 }
@@ -70,7 +72,7 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     
     if [[ $host_status == *"alive"* ]]; then
         # Network is up
-        echo "Network is working correctly" && exit 0
+        date_log "Network is working correctly" && exit 0
     else
         # Network is down
         echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
