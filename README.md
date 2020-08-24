@@ -1,15 +1,11 @@
-# Raspberry Pi (and GNU / Linux) - Wifi Repair Automation
-> This bash script checks the health status for wireless internet connection and, if it is failing, tries to fix it.   
+# Raspberry Pi / Linux Network Repair Automation
+> This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
 ## Prerequisite - Mandatory
 
-- Download and install fping:  
-`sudo apt-get install fping -y`
+You at least need the "ping" command which should exist on most systems which already have networking.  If not the following should get you there:
 
-## Prerequisite - Optional
-
-- Ifupdown isn't compatible with udev and on some systems (e.g. your NAS OS) it may not be a good idea replacing it. The script will detect automatically ifupdown and will work also if it is not installed. In the next releases of this script ifupdown usage will be deprecated.
-`sudo apt-get install ifupdown -y`
+`apt-get install -y iputils-ping`
 
 ## How to use
 
