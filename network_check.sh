@@ -19,7 +19,7 @@ clear
 # Set gateway_ip to the gateway that you want to check to declare network working or not
 gateway_ip='1.1.1.1'
 # Set nic to your Network card name, as seen in ifconfig output
-nic='eth0'
+nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks
 network_check_threshold=5
 # Set reboot_server to true if you want to reboot as a last
