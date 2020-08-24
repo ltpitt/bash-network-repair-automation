@@ -4,7 +4,10 @@
 ## Prerequisites
 
 - Download and install requirements:  
-`sudo apt-get install ifupdown fping -y`
+`sudo apt-get install fping -y`
+
+- Optional.  Note ifupdown isn't compatible with udev, which you may not be hip with replacing on your NAS OS
+`sudo apt-get install ifupdown -y`
 
 ## How to use
 
