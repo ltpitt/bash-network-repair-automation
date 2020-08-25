@@ -2,14 +2,16 @@
 > This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
 ## Tested Platforms
-Raspberry Pi Linux
-ReadyNAS 6.10.3
+GNU/Linux, Debian 10 - Buster
+Raspberry Pi, Raspbian 10 - Buster
+ReadyNAS, 6.10.3
+
 
 ## Prerequisites
 
 You at least need the "ping" command which should exist on most systems which already have networking.  If not the following should get you there:
 
-`apt-get install -y iputils-ping`
+`sudo apt-get install -y iputils-ping`
 
 ## How to use
 
@@ -48,6 +50,9 @@ One of "preen", "yes", "no". Controls the mode of operation. The default is "pre
 
 ## Release History
 
+* 0.0.3
+    * Removed all dependencies
+    * Added reboot-loop prevention
 * 0.0.3
     * Ifupdown is not compatible with udev, in order to extend compatibility with other systems like NAS its requirement was made optional
     * Added logging
