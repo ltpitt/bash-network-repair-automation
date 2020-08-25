@@ -14,13 +14,15 @@ gateway_ip='1.1.1.1'
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks
 network_check_threshold=5
-# Set reboot_server to true if you want to reboot as a last
-# option to fix wifi if ip up/down fail
+# Set reboot_server to true if you want to reboot the system as a last
+# option to fix wifi in case the normal restore procedure fails
 reboot_server=false
-# to prevent reboot loops, only reboot once every N minutes
+# Set reboot_server to the desired amount of minutes, it is used to
+# prevent reboot loops in case network is down for long time and reboot_server
+# is enabled
 reboot_cycle=60
-# last boot file
-last_bootfile=/root/.last_net_autoboot
+# Last boot file file location, also used to prevent reboot loop
+last_bootfile=/tmp/.last_net_autoboot
 
 ###
 # Script logic
@@ -29,6 +31,7 @@ last_bootfile=/root/.last_net_autoboot
 # Initializing the network check counter to zero
 network_check_tries=0
 
+# This function is a simple logger, just adding datetime to messages
 function date_log {
     echo "$(date +'%Y-%m-%d %T') $1"
 }
