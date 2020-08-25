@@ -1,15 +1,15 @@
-# Raspberry Pi (and GNU / Linux) - Wifi Repair Automation
-> This bash script checks the health status for wireless internet connection and, if it is failing, tries to fix it.   
+# Network Repair/Reboot Automation
+> This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
-## Prerequisite - Mandatory
+## Tested Platforms
+Raspberry Pi Linux
+ReadyNAS 6.10.3
 
-- Download and install fping:  
-`sudo apt-get install fping -y`
+## Prerequisites
 
-## Prerequisite - Optional
+You at least need the "ping" command which should exist on most systems which already have networking.  If not the following should get you there:
 
-- Ifupdown isn't compatible with udev and on some systems (e.g. your NAS OS) it may not be a good idea replacing it. The script will detect automatically ifupdown and will work also if it is not installed. In the next releases of this script ifupdown usage will be deprecated.
-`sudo apt-get install ifupdown -y`
+`apt-get install -y iputils-ping`
 
 ## How to use
 
@@ -19,7 +19,7 @@
 `sudo crontab -e` 
 - Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
 `* * * * * /yourpath/network_check.sh >> /var/log/netcheck.log 2>&1`
-- If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
+- If you also want to reboot in case the network is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
 
 ## Optional - Push notifications / Email

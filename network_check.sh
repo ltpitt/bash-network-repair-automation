@@ -4,25 +4,23 @@
 #
 # Please check README.md for install / usage instructions
 
-# Checking if requirements (fping and ifupdown) are installed 
-`command -v /sbin/fping >/dev/null 2>&1 || command -v fping >/dev/null 2>&1` || { echo >&2 "Sorry but fping is not installed. Aborting.";  exit 1; }
-
-command -v /sbin/ifdown >/dev/null 2>&1 || command -v ifup >/dev/null 2>&1
-USE_IFUPDOWN=$?
-
 ###
 # Configuration variables, customize if needed
 ###
 
 # Set gateway_ip to the gateway that you want to check to declare network working or not
 gateway_ip='1.1.1.1'
-# Set nic to your Network card name, as seen in ifconfig output
+# Set nic to your Network card name, as seen in ip output
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks
 network_check_threshold=5
 # Set reboot_server to true if you want to reboot as a last
-# option to fix wifi if ifdown / ifup failed
+# option to fix wifi if ip up/down fail
 reboot_server=false
+# to prevent reboot loops, only reboot once every N minutes
+reboot_cycle=60
+# last boot file
+last_bootfile=/root/.last_net_autoboot
 
 ###
 # Script logic
@@ -36,27 +34,26 @@ function date_log {
 }
 
 function restart_wlan {
-    # Trying wlan restart using ifdown / ifup
+    # Trying wlan restart using ip
     date_log "Network was not working for the previous $network_check_tries checks."
     date_log "Restarting $nic"
-    if [[ $USE_IFUPDOWN = 0 ]]; then
-        /sbin/ifdown "$nic"
-        sleep 5
-        /sbin/ifup --force "$nic"
-        sleep 60
-    else
-        /sbin/ifconfig "$nic" down
-        sleep 5
-        /sbin/ifconfig "$nic" up
-        sleep 60
-    fi
+    /sbin/ip link set "$nic" down
+    sleep 5
+    /sbin/ip link set "$nic" up
+    sleep 60
 
     # If network is still down and reboot_server is set to true reboot
-    host_status=$(fping $gateway_ip)
-    if [[ $host_status != *"alive"* ]]; then
-        if [ "$reboot_server" = true ] ; then
-            date_log "Network is still not working, rebooting"
-            /sbin/reboot
+    ping -c 1 $gateway_ip > /dev/null 2>&1
+    if [[ $? != 0 ]]; then
+        if [ "$reboot_server" = true ]; then
+            # if there's no last boot file or it's older than reboot_cycle
+            if [[ ! -f $last_bootfile || $(find $last_bootfile -mtime +$reboot_cycle -print) ]]; then
+                touch $last_bootfile
+                date_log "Network is still not working, rebooting"
+                /sbin/reboot
+            else
+                date_log "Last auto reboot was less than $reboot_cycle minutes old"
+            fi
         fi
     fi
 }
@@ -65,12 +62,11 @@ function restart_wlan {
 # network_check_threshold failures the network will be declared as
 # not functional and the restart_wlan function will be triggered
 while [ $network_check_tries -lt $network_check_threshold ]; do
-    # Checking if ping to gateway is working using fping
-    host_status=$(fping $gateway_ip)
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
     
-    if [[ $host_status == *"alive"* ]]; then
+    ping -c 1 $gateway_ip > /dev/null 2>&1
+    if [[ $? = 0 ]]; then
         # Network is up
         date_log "Network is working correctly" && exit 0
     else
