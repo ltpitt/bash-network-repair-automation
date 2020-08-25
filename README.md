@@ -9,8 +9,8 @@
 
 ## Prerequisites
 
-You at least need the "ping" command which should exist on most systems which already have networking.  If not the following should get you there:
-
+You at least need the "ping" command which should exist on most systems which already have networking.  
+In case your system does not have ping it is possible to install it using this command:
 `sudo apt-get install -y iputils-ping`
 
 ## How to use
