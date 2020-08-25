@@ -2,9 +2,9 @@
 > This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
 ## Tested Platforms
-GNU/Linux, Debian 10 - Buster
-Raspberry Pi, Raspbian 10 - Buster
-ReadyNAS, 6.10.3
+* GNU/Linux, Debian 10 - Buster
+* Raspberry Pi, Raspbian 10 - Buster
+* ReadyNAS, 6.10.3
 
 
 ## Prerequisites
