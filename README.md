@@ -1,7 +1,11 @@
-# Raspberry Pi / Linux Network Repair Automation
+# Network Repair/Reboot Automation
 > This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
-## Prerequisite - Mandatory
+## Tested Platforms
+Raspberry Pi Linux
+ReadyNAS 6.10.3
+
+## Prerequisites
 
 You at least need the "ping" command which should exist on most systems which already have networking.  If not the following should get you there:
 
@@ -15,7 +19,7 @@ You at least need the "ping" command which should exist on most systems which al
 `sudo crontab -e` 
 - Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
 `* * * * * /yourpath/network_check.sh >> /var/log/netcheck.log 2>&1`
-- If you also want to reboot in case wifi is not working after the fix customize the reboot_server variable accordigly editing the script:  
+- If you also want to reboot in case the network is not working after the fix customize the reboot_server variable accordigly editing the script:  
 `nano network_check.sh`  
 
 ## Optional - Push notifications / Email
