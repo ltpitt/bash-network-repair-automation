@@ -45,8 +45,9 @@ function restart_wlan {
     /sbin/ip link set "$nic" up
     sleep 60
 
-    # If network is still down and reboot_server is set to true reboot
+    # Pinging gateway_ip one time
     ping -c 1 $gateway_ip > /dev/null 2>&1
+    # If previous command was NOT successful
     if [[ $? != 0 ]]; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle
