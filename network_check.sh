@@ -77,7 +77,7 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
         date_log "Network is working correctly" && exit 0
     else
         # Network is down
-        echo "Network is down, failed check number $network_check_tries of $network_check_threshold"
+        date_log "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
     
     # Once the network_check_threshold is reached call restart_wlan
