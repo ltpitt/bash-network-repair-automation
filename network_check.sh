@@ -49,7 +49,7 @@ function restart_wlan {
     ping -c 1 $gateway_ip > /dev/null 2>&1
     if [[ $? != 0 ]]; then
         if [ "$reboot_server" = true ]; then
-            # if there's no last boot file or it's older than reboot_cycle
+            # If there's no last boot file or it's older than reboot_cycle
             if [[ ! -f $last_bootfile || $(find $last_bootfile -mtime +$reboot_cycle -print) ]]; then
                 touch $last_bootfile
                 date_log "Network is still not working, rebooting"
@@ -68,7 +68,9 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
     
+    # Pinging gateway_ip one time
     ping -c 1 $gateway_ip > /dev/null 2>&1
+    # If previous command was successful
     if [[ $? = 0 ]]; then
         # Network is up
         date_log "Network is working correctly" && exit 0
