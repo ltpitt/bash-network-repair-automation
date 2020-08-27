@@ -8,8 +8,9 @@
 # Configuration variables, customize if needed
 ###
 
-# Set gateway_ip to the gateway that you want to check to declare network working or not
-gateway_ip='1.1.1.1'
+# Set gateway_ips to one or more ips that you want to check to declare network working or not
+# If any of the computers respond, the network is considered up.   Only one is required.
+gateway_ips='1.1.1.1 8.8.8.8'
 # Set nic to your Network card name, as seen in ip output
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks
@@ -36,6 +37,19 @@ function date_log {
     echo "$(date +'%Y-%m-%d %T') $1"
 }
 
+function check_gateways {
+    # Check each IP address one at a time.  Return as soon as one is good
+    for ip in $gateway_ips; do
+        ping -c 1 $ip > /dev/null 2>&1
+        # Return as soon as one is good
+        if [[ $? == 0 ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+
 function restart_wlan {
     # Trying wlan restart using ip
     date_log "Network was not working for the previous $network_check_tries checks."
@@ -45,8 +59,7 @@ function restart_wlan {
     /sbin/ip link set "$nic" up
     sleep 60
 
-    # Pinging gateway_ip one time
-    ping -c 1 $gateway_ip > /dev/null 2>&1
+    check_gateways
     # If previous command was NOT successful
     if [[ $? != 0 ]]; then
         if [ "$reboot_server" = true ]; then
@@ -69,8 +82,7 @@ while [ $network_check_tries -lt $network_check_threshold ]; do
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
     
-    # Pinging gateway_ip one time
-    ping -c 1 $gateway_ip > /dev/null 2>&1
+    check_gateways
     # If previous command was successful
     if [[ $? = 0 ]]; then
         # Network is up
