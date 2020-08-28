@@ -8,8 +8,10 @@
 # Configuration variables, customize if needed
 ###
 
-# Set gateway_ips to one or more ips that you want to check to declare network working or not
-# If any of the computers respond, the network is considered up.   Only one is required.
+# Set gateway_ips to one or more ips that you want to check to declare network working or not.
+# If any of the ips responds, the network is considered functional.
+# A minimum of one ip is required, in the example below it shows how to check two different
+# gateways using a space character as delimiter.
 gateway_ips='1.1.1.1 8.8.8.8'
 # Set nic to your Network card name, as seen in ip output
 nic='wlan0'
@@ -38,10 +40,12 @@ function date_log {
 }
 
 function check_gateways {
-    # Check each IP address one at a time.  Return as soon as one is good
+    # Check each IP address one at a time.
     for ip in $gateway_ips; do
         ping -c 1 $ip > /dev/null 2>&1
-        # Return as soon as one is good
+        # The $? variable always contains the return code of the previous command.
+        # In BASH return code 0 usually means that everything executed successfully.        
+        # In the next if we are checking if the ping command execution was successful.
         if [[ $? == 0 ]]; then
             return 0
         fi
@@ -51,16 +55,16 @@ function check_gateways {
 
 
 function restart_wlan {
-    # Trying wlan restart using ip
     date_log "Network was not working for the previous $network_check_tries checks."
     date_log "Restarting $nic"
+    # Trying wlan restart using ip command
     /sbin/ip link set "$nic" down
     sleep 5
     /sbin/ip link set "$nic" up
     sleep 60
 
     check_gateways
-    # If previous command was NOT successful
+    # In case the previous command, check_gateways, was NOT successful
     if [[ $? != 0 ]]; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle
