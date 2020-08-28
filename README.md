@@ -54,9 +54,9 @@ One of "preen", "yes", "no". Controls the mode of operation. The default is "pre
 
 ## Release History
 
-* 0.0.4
+* 0.0.5
     * Added multiple ip functionality for gateway check
-* 0.0.3
+* 0.0.4
     * Removed all dependencies
     * Added reboot-loop prevention
 * 0.0.3
