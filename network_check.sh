@@ -13,28 +13,29 @@
 # A minimum of one ip is required, in the example below it shows how to check two different
 # gateways using a space character as delimiter.
 gateway_ips='1.1.1.1 8.8.8.8'
-# Set nic to your Network card name, as seen in ip output
+# Set nic to your Network card name, as seen in ip output.
 nic='wlan0'
-# Set network_check_threshold to the maximum number of failed checks
+# Set network_check_threshold to the maximum number of failed checks that must fail
+# before declaring the network as non functional.
 network_check_threshold=5
 # Set reboot_server to true if you want to reboot the system as a last
-# option to fix wifi in case the normal restore procedure fails
+# option to fix wifi in case the normal restore procedure fails.
 reboot_server=false
 # Set reboot_server to the desired amount of minutes, it is used to
 # prevent reboot loops in case network is down for long time and reboot_server
-# is enabled
+# is enabled.
 reboot_cycle=60
-# Last boot file file location, also used to prevent reboot loop
+# Last boot file file location, also used to prevent reboot loop.
 last_bootfile=/tmp/.last_net_autoboot
 
 ###
 # Script logic
 ###
 
-# Initializing the network check counter to zero
+# Initializing the network check counter to zero.
 network_check_tries=0
 
-# This function is a simple logger, just adding datetime to messages
+# This function is a simple logger, just adding datetime to messages.
 function date_log {
     echo "$(date +'%Y-%m-%d %T') $1"
 }
@@ -57,14 +58,14 @@ function check_gateways {
 function restart_wlan {
     date_log "Network was not working for the previous $network_check_tries checks."
     date_log "Restarting $nic"
-    # Trying wlan restart using ip command
+    # Trying wlan restart using ip command.
     /sbin/ip link set "$nic" down
     sleep 5
     /sbin/ip link set "$nic" up
     sleep 60
 
     check_gateways
-    # In case the previous command, check_gateways, was NOT successful
+    # In case the previous command, check_gateways, was NOT successful.
     if [[ $? != 0 ]]; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle
@@ -81,22 +82,22 @@ function restart_wlan {
 
 # This loop will run for network_check_tries times, in case there are
 # network_check_threshold failures the network will be declared as
-# not functional and the restart_wlan function will be triggered
+# not functional and the restart_wlan function will be triggered.
 while [ $network_check_tries -lt $network_check_threshold ]; do
     # Increasing network_check_tries by 1
     network_check_tries=$[$network_check_tries+1]
     
     check_gateways
-    # If previous command was successful
+    # If previous command was successful.
     if [[ $? = 0 ]]; then
-        # Network is up
+        # Network is up.
         date_log "Network is working correctly" && exit 0
     else
-        # Network is down
+        # Network is down.
         date_log "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
     
-    # Once the network_check_threshold is reached call restart_wlan
+    # Once the network_check_threshold is reached call restart_wlan.
     if [ $network_check_tries -ge $network_check_threshold ]; then
         restart_wlan
     fi
