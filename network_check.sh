@@ -40,8 +40,8 @@ function date_log {
     echo "$(date +'%Y-%m-%d %T') $1"
 }
 
+# This function checks connectivity to gateway_ips
 function check_gateways {
-    # Check each IP address one at a time.
     for ip in $gateway_ips; do
         ping -c 1 $ip > /dev/null 2>&1
         # The $? variable always contains the return code of the previous command.
