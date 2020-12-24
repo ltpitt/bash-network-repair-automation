@@ -66,9 +66,8 @@ function restart_wlan {
     /sbin/ip link set "$nic" up
     sleep 60
 
-    check_gateways
-    # In case the previous command, check_gateways, was NOT successful.
-    if [[ $? != 0 ]]; then
+    # If the gateway checks are NOT successful.
+    if ! check_gateways; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle.
             if [[ ! -f $last_bootfile || $(find $last_bootfile -mtime +$reboot_cycle -print) ]]; then
@@ -87,11 +86,10 @@ function restart_wlan {
 # not functional and the restart_wlan function will be triggered.
 while [ $network_check_tries -lt $network_check_threshold ]; do
     # Increasing network_check_tries by 1
-    network_check_tries=$[$network_check_tries+1]
+    network_check_tries=$((network_check_tries+1))
 
-    check_gateways
-    # If previous command was successful.
-    if [[ $? = 0 ]]; then
+    # If the gateway checks are successful.
+    if check_gateways; then
         # Network is up.
         date_log "Network is working correctly" && exit 0
     else
