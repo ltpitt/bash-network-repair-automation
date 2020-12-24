@@ -14,6 +14,8 @@
 # gateways using a space character as delimiter.
 gateway_ips='1.1.1.1 8.8.8.8'
 # Set nic to your Network card name, as seen in ip output.
+# If you have multiple interfaces and are currently online, you can find which is in use with:
+# ip route get 1.1.1.1 | head -n1 | cut -d' ' -f5
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks that must fail
 # before declaring the network as non functional.
@@ -45,7 +47,7 @@ function check_gateways {
     for ip in $gateway_ips; do
         ping -c 1 $ip > /dev/null 2>&1
         # The $? variable always contains the return code of the previous command.
-        # In BASH return code 0 usually means that everything executed successfully.        
+        # In BASH return code 0 usually means that everything executed successfully.
         # In the next if we are checking if the ping command execution was successful.
         if [[ $? == 0 ]]; then
             return 0
@@ -64,9 +66,8 @@ function restart_wlan {
     /sbin/ip link set "$nic" up
     sleep 60
 
-    check_gateways
-    # In case the previous command, check_gateways, was NOT successful.
-    if [[ $? != 0 ]]; then
+    # If the gateway checks are NOT successful.
+    if ! check_gateways; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle.
             if [[ ! -f $last_bootfile || $(find $last_bootfile -mtime +$reboot_cycle -print) ]]; then
@@ -85,18 +86,17 @@ function restart_wlan {
 # not functional and the restart_wlan function will be triggered.
 while [ $network_check_tries -lt $network_check_threshold ]; do
     # Increasing network_check_tries by 1
-    network_check_tries=$[$network_check_tries+1]
-    
-    check_gateways
-    # If previous command was successful.
-    if [[ $? = 0 ]]; then
+    network_check_tries=$((network_check_tries+1))
+
+    # If the gateway checks are successful.
+    if check_gateways; then
         # Network is up.
         date_log "Network is working correctly" && exit 0
     else
         # Network is down.
         date_log "Network is down, failed check number $network_check_tries of $network_check_threshold"
     fi
-    
+
     # Once the network_check_threshold is reached call restart_wlan.
     if [ $network_check_tries -ge $network_check_threshold ]; then
         restart_wlan

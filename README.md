@@ -19,6 +19,9 @@ In case your system does not have ping it is possible to install it using this c
 `git clone https://github.com/ltpitt/bash-network-repair-automation.git`
 - Make the script executable:
 `sudo chmod +x network_check.sh`
+- (Optional) If your network card name is not wlan0, you should replace it with the correct name. For example to use the name of the currently connected card:  
+`sed -i 's/wlan0/'"$(ip route get 1.1.1.1 | head -n1 | cut -d' ' -f5)"'/' network_check.sh`  
+(note for MacOS users, use `gsed` or add an argument `sed -i '' ...`)
 - Edit your root user's crontab using:  
 `sudo crontab -e` 
 - Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
