@@ -92,6 +92,7 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 2. [pattyland](https://github.com/pattyland)
 3. [deltabravozulu](https://github.com/deltabravozulu)
 4. [mpatnode](https://github.com/mpatnode)
+5. [m3at](https://github.com/m3at)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
