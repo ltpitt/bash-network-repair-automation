@@ -70,7 +70,7 @@ function restart_wlan {
     if ! check_gateways; then
         if [ "$reboot_server" = true ]; then
             # If there's no last boot file or it's older than reboot_cycle.
-            if [[ ! -f $last_bootfile || $(find $last_bootfile -mtime +$reboot_cycle -print) ]]; then
+            if [[ ! -f $last_bootfile || $(find $last_bootfile -mmin +$reboot_cycle -print) ]]; then
                 touch $last_bootfile
                 date_log "Network is still not working, rebooting"
                 /sbin/reboot
