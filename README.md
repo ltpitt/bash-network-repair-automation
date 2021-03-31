@@ -57,9 +57,9 @@ One of "preen", "yes", "no". Controls the mode of operation. The default is "pre
 
 ## Release History
 
-* 0.0.5
+* 0.1.1
     * Added multiple ip functionality for gateway check
-* 0.0.4
+* 0.1.0
     * Removed all dependencies
     * Added reboot-loop prevention
 * 0.0.3
@@ -93,6 +93,7 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 3. [deltabravozulu](https://github.com/deltabravozulu)
 4. [mpatnode](https://github.com/mpatnode)
 5. [m3at](https://github.com/m3at)
+6. [pcchynoweth](https://github.com/pcchynoweth)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
