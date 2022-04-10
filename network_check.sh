@@ -29,8 +29,9 @@ reboot_server=false
 reboot_cycle=60
 # Folder where this script is located
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-# Last boot file file location, also used to prevent reboot loop.
+# Last boot file location, also used to prevent reboot loop.
 last_bootfile=/${SCRIPT_DIR}/.last_net_autoboot
+echo "last_net_autoboot location is: ${SCRIPT_DIR}"
 
 ###
 # Script logic
