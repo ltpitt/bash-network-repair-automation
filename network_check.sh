@@ -19,7 +19,7 @@ gateway_ips='1.1.1.1 8.8.8.8'
 nic='wlan0'
 # Set network_check_threshold to the maximum number of failed checks that must fail
 # before declaring the network as non functional.
-network_check_threshold=5
+network_check_threshold=20
 # Set reboot_server to true if you want to reboot the system as a last
 # option to fix wifi in case the normal restore procedure fails.
 reboot_server=false
@@ -27,8 +27,10 @@ reboot_server=false
 # prevent reboot loops in case network is down for long time and reboot_server
 # is enabled.
 reboot_cycle=60
+# Folder where this script is located
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 # Last boot file file location, also used to prevent reboot loop.
-last_bootfile=/tmp/.last_net_autoboot
+last_bootfile=/${SCRIPT_DIR}/.last_net_autoboot
 
 ###
 # Script logic
