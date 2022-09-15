@@ -1,4 +1,3 @@
-![build](https://github.com/ltpitt/bash-network-repair-automation/workflows/Python%20package/badge.svg)
 [![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/bash-network-repair-automation)](https://github.com/ltpitt/bash-network-repair-automation/issues)
 ![Total Commits](https://img.shields.io/github/last-commit/ltpitt/bash-network-repair-automation)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/bash-network-repair-automation?foo=bar)
