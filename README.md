@@ -32,8 +32,8 @@ In case your system does not have ping it is possible to install it using this c
 `sudo crontab -e` 
 - Add to your crontab the following line, it will execute the check every minute. Please customize the script path according to the folder where you cloned the repo:  
 `* * * * * /yourpath/network_check.sh >> /var/log/netcheck.log 2>&1`
-- If you also want to reboot in case the network is not working after the fix customize the reboot_server variable accordigly editing the script:  
-`nano network_check.sh`  
+- If you also want to reboot in case the network is not working after the fix customize the reboot_server variable accordigly editing the script using vi (or your preferred editor):  
+`vi network_check.sh`  
 - The script contains VERY verbose comments and explanations in order to make it friendly and easy to modify for young and / or inexperienced BASH users. If you are an expert you will find those terrible and boring, here's a snippet to remove all comments in one go:  
 `grep -o '^[^#]*' network_check.sh`
 
