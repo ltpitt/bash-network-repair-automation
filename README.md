@@ -1,3 +1,10 @@
+![build](https://github.com/ltpitt/bash-network-repair-automation/workflows/Python%20package/badge.svg)
+[![GitHub Issues](https://img.shields.io/github/issues-raw/ltpitt/bash-network-repair-automation)](https://github.com/ltpitt/bash-network-repair-automation/issues)
+![Total Commits](https://img.shields.io/github/last-commit/ltpitt/bash-network-repair-automation)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/4w/ltpitt/bash-network-repair-automation?foo=bar)
+[![License](https://img.shields.io/badge/license-GPL-blue.svg)](https://opensource.org/licenses/GPL-3.0)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+
 # Network Repair/Reboot Automation
 > This bash script checks the health status for either wired or wireless internet connection and, if it is failing, tries to fix it.   
 
