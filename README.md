@@ -94,12 +94,12 @@ Distributed under the GPL license. See ``LICENSE`` for more information.
 
 ## Contributors (thanks, you are awesome! :) )
 
-1. [czerwony03](https://github.com/czerwony03) - [bug: fixed wrong apostrophe](https://github.com/ltpitt/bash-network-repair-automation/pull/1)
-2. [pattyland](https://github.com/pattyland) - [Added absolute path if root does not have sbin in path](https://github.com/ltpitt/bash-network-repair-automation/pull/2)
-3. [deltabravozulu](https://github.com/deltabravozulu) - [Make ifupdown optional for udev users](https://github.com/ltpitt/bash-network-repair-automation/pull/5)
-4. [mpatnode](https://github.com/mpatnode) - [Use regular ping. Add reboot loop prevention](https://github.com/ltpitt/bash-network-repair-automation/pull/6)
-5. [m3at](https://github.com/m3at) - [Allow for multiple check hosts/IPs](https://github.com/ltpitt/bash-network-repair-automation/pull/7)
-6. [pcchynoweth](https://github.com/pcchynoweth) - [Feature/add note interface](https://github.com/ltpitt/bash-network-repair-automation/pull/8)
+1. [czerwony03](https://github.com/czerwony03) -> [bug: fixed wrong apostrophe](https://github.com/ltpitt/bash-network-repair-automation/pull/1)
+2. [pattyland](https://github.com/pattyland) -> [Added absolute path if root does not have sbin in path](https://github.com/ltpitt/bash-network-repair-automation/pull/2)
+3. [deltabravozulu](https://github.com/deltabravozulu) -> [Make ifupdown optional for udev users](https://github.com/ltpitt/bash-network-repair-automation/pull/5)
+4. [mpatnode](https://github.com/mpatnode) -> [Use regular ping. Add reboot loop prevention](https://github.com/ltpitt/bash-network-repair-automation/pull/6)
+5. [m3at](https://github.com/m3at) -> [Allow for multiple check hosts/IPs](https://github.com/ltpitt/bash-network-repair-automation/pull/7)
+6. [pcchynoweth](https://github.com/pcchynoweth) -> [Feature/add note interface](https://github.com/ltpitt/bash-network-repair-automation/pull/8)
 
 <!-- Markdown link & img dfn's -->
 [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
